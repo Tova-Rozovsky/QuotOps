@@ -28,7 +28,7 @@ It includes Kubernetes manifests for local deployment via **Minikube**, and inte
 ## 🧪 Running Locally (No Kubernetes)
 
 ```bash
-git clone https://github.com/your-username/quotops.git
+git clone https://github.com/tova-rozovsky/quotops.git
 cd quotops
 
 python3 -m venv venv
@@ -36,18 +36,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 flask run
-
-
-## 🧪 Running Locally
-
-1. Clone the repository:
-git clone https://github.com/your-username/quotops.git
-cd QuotOps
-<pre><code>
-```bash python3 -m venv venv 
-source venv/bin/activate
- pip install -r requirements.txt
- flask run ```
-</code></pre>
+```bash
 
 
