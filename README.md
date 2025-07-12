@@ -38,7 +38,7 @@ pip install -r requirements.txt
 flask run
 ```
 ---
-**⚙️ Quick Start (Minikube Deployment)**
+## ⚙️ Quick Start (Minikube Deployment)
 This project includes full setup files for deploying the app on Minikube.
 
 ✅ Prerequisites
