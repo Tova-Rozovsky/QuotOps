@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffbb33, #ff6699);
+            color: rgb(150, 147, 147);
+            font-family: 'Arial', sans-serif;
+            transition: background 0.5s ease-in-out;
+        }
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .fade-in.show {
+            opacity: 1;
+        }
+        .quote-container {
+            width: 24rem; /* 96 in Tailwind */
+            min-height: 12rem; /* Ensures stable height */
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .styled-button {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+        }
+        .styled-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 15px rgba(255, 138, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="quote-container">
+        <h1 class="text-2xl font-bold mb-4">Random Quote</h1>
+        <p id="quote" class="text-lg italic fade-in">Click below to get a quote...</p>
+        <p id="author" class="text-sm text-gray-600 mt-2 fade-in"></p>
+        <button onclick="getQuote()" class="mt-4 styled-button">New Quote</button>
+    </div>
+
+    <script>
+        async function getQuote() {
+            const response = await fetch('/api/quote');
+            const data = await response.json();
+            const quoteElem = document.getElementById('quote');
+            const authorElem = document.getElementById('author');
+            
+            quoteElem.classList.remove('show');
+            authorElem.classList.remove('show');
+            
+            setTimeout(() => {
+                quoteElem.textContent = `"${data.quote}"`;
+                authorElem.textContent = `- ${data.author}`;
+                quoteElem.classList.add('show');
+                authorElem.classList.add('show');
+                document.body.style.background = getRandomGradient();
+            }, 300);
+        }
+        
+        function getRandomGradient() {
+            const colors = [
+                ['#ffbb33', '#ff6699'],
+                ['#ff9966', '#ff5e62'],
+                ['#ffcc00', '#ff6699'],
+                ['#ff7eb3', '#ff758c'],
+                ['#ff9a8b', '#ff6a88']
+            ];
+            const randomColors = colors[Math.floor(Math.random() * colors.length)];
+            return `linear-gradient(135deg, ${randomColors[0]}, ${randomColors[1]})`;
+        }
+    </script>
+</body>
+</html>
