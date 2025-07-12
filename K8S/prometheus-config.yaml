@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: default
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+
+    scrape_configs:
+      - job_name: 'my-app-service'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - default
+
+        metrics_path: /metrics
+
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_name]
+            action: keep
+            regex: my-app-service
+
+          - source_labels: [__meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: metrics
+            
+      - job_name: 'kube-state-metrics'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - monitoring  # החלף ל-namespace המתאים אם שונה
+
+        metrics_path: /metrics
+
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_name]
+            action: keep
+            regex: kube-state-metrics
+
+          - source_labels: [__meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: http  # או 'metrics' תלוי בשם הפורט ב-Service שלך
