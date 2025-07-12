@@ -11,17 +11,17 @@ It includes Kubernetes manifests for local deployment via **Minikube**, and inte
 - 🌈 View a random quote each time you visit  
 - 🔧 Flask-based web app (single endpoint)  
 - 🚢 Deployable on Minikube (Kubernetes local cluster)  
-- 📊 Exposes metrics to Prometheus using `prometheus_flask_exporter`  
+- 📊 Exposes metrics to Prometheus using `prometheus_client`  
 
 ---
 
 ## 🛠️ Tech Stack
 
-- Python 3.x + Flask  
+- Python 3.9 + Flask  
 - Docker  
 - Kubernetes (via Minikube)  
 - Prometheus  
-- `prometheus_flask_exporter`  
+- `prometheus_client`  
 
 ---
 
@@ -37,5 +37,29 @@ pip install -r requirements.txt
 
 flask run
 ```
+---
+⚙️ Quick Start (Minikube Deployment)
+This project includes full setup files for deploying the app on Minikube.
 
+✅ Prerequisites
+Before running the setup, make sure you have:
 
+✅ Docker image built (myapp:monitoring)
+
+✅ Minikube installed 
+
+🚀 Deploy with one command:
+Once all prerequisites are met:
+
+```bash
+./setup.sh
+```
+
+🧱 App Deployment & Service
+
+📈 Prometheus monitoring
+
+**Then access the app and open Prometheus**
+```bash
+minikube service
+```
